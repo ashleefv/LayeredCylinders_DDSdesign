@@ -40,38 +40,51 @@ E.A. Chacin Ruiz, K. E. Swindle-Reilly, and A. N. Ford Versypt, Modeling and Des
 * Microcapsule_drug_release_ALL_formulations.xlsx This excel file contains the information for experimental release from experimental devices of different sizes and porosities.
 * ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
 
-### Diffusion_Boundaries Folder Scripts
-* LowerAndUpperLimitsForDiffusion.m This script plots a figure showing the experimental data for BSA and Bevacizumab from Jiang et al. (2020), and the cumulative release curves assuming the same diffusion coefficients in both layers. Creates Figure S4.
+### Exploring_critical_times Folder Scripts
+  #### BSA
+  * BSA_critical_time_exploration.m This script plots BSA cumulative release vs time and error value vs iteration for different possible critical times explored for the different formulations.
+  * Results_compilation_BSA.xlsx This excel file contains the information of initial guesses, estimated parameters and objective functions for the different critical times explored for the different formulations.
+  * ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
 
-### Diffusion_Regimes Folder Scripts and Data
-* balanced_diffusion.mat Contains the concentration matrix (at different times and positions) for the case of DChi = DPCL.
-* core_limited_diffusion.mat Contains the concentration matrix (at different times and positions) for the case of DChi << DPCL.
-* Plot_Diffusion_Regimes.m This script plots the concentration profile with respect to position, at different time points, for the three regimes. Creates Figure S7.
-* shell_limited_diffusion.mat Contains the concentration matrix (at different times and positions) for the case of DChi >> DPCL.
+  #### Bevacizumab
+  * Bev_critical_time_exploration.m This script plots bevacizumab cumulative release vs time and error value vs iteration for different possible critical times explored for the different formulations.
+  * Results_compilation_Bev.xlsx This excel file contains the information of initial guesses, estimated parameters and objective functions for the different critical times explored for the different formulations.
+  * ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.  
 
-### Parameter_Estimation_Results Folder Scripts and Data
-* InitialGuesses_100_Simulations.xlsx This datasheet contains the information used and results for the preliminary parameter estimation for both BSA and bevacizumab in MATLAB and COMSOL.
-* InitialGuesses_50_Simulations.xlsx This datasheet contains the information used and results for the final parameter estimation for both BSA and bevacizumab in MATLAB and COMSOL.
-* Plots_Bev_100_IC.m This script reads the preliminary parameter estimation results for bevacizumab from InitialGuesses_100_Simulations.xlsx and the output is a 2x2 plot comparing average and best results for COMSOL and MATLAB, and the error values obtained. Creates Figure S6.
-* Plots_Bev_50_IC.m This script reads the final parameter estimation results for bevacizumab from InitialGuesses_50_Simulations.xlsx and the output is a 2x2 plot comparing average and best results for COMSOL and MATLAB, and the error values obtained. Creates Figure 4.
-* Plots_BSA_100_IC.m This script reads the preliminary parameter estimation results for bevacizumab from InitialGuesses_100_Simulations.xlsx and the output is a 2x2 plot comparing average and best results for COMSOL and MATLAB, and the error values obtained. Creates Figure S5.
-* Plots_BSA_50_IC.m This script reads the final parameter estimation results for BSA from InitialGuesses_50_Simulations.xlsx and the output is a 2x2 plot comparing average and best results for COMSOL and MATLAB, and the error values obtained. Creates Figure 3.
 
-### Sensitivity_and_Confidence_Interval Folder Scripts and Data
-* Combined_local_and_SOBOL.m This file plots a 3x2 figure where the top row is composed of local sensitivity analysis obtained from MATLAB and the bottom row is composed of SOBOL indices obtained from COMSOL. Creates Figure 2.
-* Confidence_Intervals.m This scripts calculates the sensitivity matrix S and uses it for the calculation of the confidence interval of the specified paramters.
-* Initial_Guesses_50_Simulations.xlsx This datasheet contains the information used and results for the final parameter estimation for both BSA and bevacizumab in MATLAB and COMSOL.
-* MOAT.m This script is used to plot the Morris one-at-a-time results obtained from COMSOL. Creates Figure S8.
-* MOAT_Info_COMSOL.xlsx This datasheet contains the COMSOL results of the MOAT mean and MOAT standard deviation for the parameters under different drug release regimens.
-* MPs_release_6_months.xlsx This datasheet contains the experimental data for cumulative drug release with time, and its standard deviation.
-* Sensitivity_Analysis.m This scripts solves the local sensitivity analysis for a given perturbance percentage and plots the normalized change in cumulative drug release for the specified parameters.
-* solve_FD_spheres_sensitivity.m This file solves the PDE for Fickian diffusion within a radially symmetric sphere. It is an optimized version of "solve_FD_spheres_variable_diffusivity.m" reporposed for the type of input and output required for the sensitivity analysis.
+### Parameter_estimation Folder Scripts and Data
 
-## COMSOL Folder Scripts and Data
-* BSA_Experimental_data_MPs_Chitosan-PCL.csv This datasheet contains the experimental data for the cumulative release of BSA with time (in seconds).
-* Bevacizumab_Experimental_data_MPs_Chitosan-PCL.csv This datasheet contains the experimental data for the cumulative release of bevacizumab with time (in seconds).
-* Optimization_MP_Chitosan_PCL.mph This file can be used to perform the parameter estimation for a given dataset.
-* Uncertainty_MP_Chitosan_PCL.mph This file can be used to perform sensitivity analysis (MOAT and SOBOL) for the model parameters.
+### PoreSizeDistribution Folder Scripts and Data
+* PoreSizeDistribution.m plots the pore size distribution for the three different formulations assuming a normal distribution.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
+  
+### Uncertainty_Propagation Folder Scripts and Data
+  #### Chitosan_PCL_scripts
+  ##### Large microcapsules
+  * Uncertainty_Propagation_kcc.m This script draws different times a random set of parameters from the distribution obtained from parameter estimation on large chitosan-PCL microcapsules.
+  * Uncertainty_Propagation_kcc.mph COMSOL file that runs the model using the parameters drawn in Uncertainty_Propagation_kcc.m
+
+  ##### Small microcapsules
+  * Uncertainty_Propagation_sf.m This script draws different times a random set of parameters from the distribution obtained from parameter estimation on small chitosan-PCL microcapsules.
+  * Uncertainty_Propagation_sf.mph COMSOL file that runs the model using the parameters drawn in Uncertainty_Propagation_sf.m
+  
+  #### Plots
+  ##### BSA
+  * 10_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 10% salt-leaching formulations.
+  * 5_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 5% salt-leaching formulations.
+  * 7_5_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 7.5% salt-leaching formulations.
+  * BSA_all_forms_early_time.m Plots the prediction interval for all the designs of all formulations for the first 30 days.
+  * BSA_all_forms_full_time.m Plots the prediction interval for all the designs of all formulations for the whole time range.
+  * All the .mat files contain the information generated from the random parameter drawing and COMSOL simulated results that are used for creating the prediction interval.
+
+  ##### Bevacizumab
+  * 10_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 10% salt-leaching formulations.
+  * 5_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 5% salt-leaching formulations.
+  * 7_5_percent_formulations.xlsx contains the information after parameter estimation of small and large PCL-only and chitosan-PCL designs for 7.5% salt-leaching formulations.
+  * Bev_all_forms_early_time.m Plots the prediction interval for all the designs of all formulations for the first 30 days.
+  * Bev_all_forms_full_time.m Plots the prediction interval for all the designs of all formulations for the whole time range.
+  * All the .mat files contain the information generated from the random parameter drawing and COMSOL simulated results that are used for creating the prediction interval.
+
 
 ## Acknowledgements
 This work was supported by National Institutes of Health grant R35GM133763 to ANFV, R01EB032870 to KESR and ANFV, and the Owen Locke Foundation to KESR. The content is solely the responsibility of the authors and does not necessarily represent the official views of the funding agencies.
