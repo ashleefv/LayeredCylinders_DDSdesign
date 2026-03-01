@@ -5,7 +5,7 @@
 Code for performing parameter estimation on concentric cylindrical drug delivery devices using available data and simulating various configurations of two concentric polymeric layers around a drug-loaded core.
 
 ## Overview
-This repository contains the MATLAB and COMSOL files from the manuscript cited below that simulates drug delivery from layered cylindrical drug delivery devices and estimates the parameters (drug diffusion coefficient in chitosan, drug diffusion coefficient in PCL, burst release, and partition coefficient) that best fit a given input dataset of cumulative release vs. time. Latin hypercube sampling is used to determine the initial guesses in the multi-start approach. The model accounts for key transport process parameters, including burst release, drug partitioning, and diffusion coefficients across bi-layered polymeric spheres. Sensitivity analyses revealed different parameter dominance depending on the specific parameter regimes driving drug release. In the chitosan-PCL case study, we identified drug diffusivity in the core and burst release as the primary drivers of the long-term release behavior. The estimated transport parameters were fitted to experimental release data for BSA and bevacizumab using both finite difference (MATLAB) and finite element (COMSOL) methods. Using clinically relevant thresholds for therapeutic delivery, we simulated drug release from chitosan-PCL microspheres and showed that core radius has a greater impact on therapeutic performance than shell thickness in the data-driven parameter regime. We further developed a customizable MATLAB tool to explore the trade-off of using different layer sizes through automated simulations, providing visual outputs of the profiles of cumulative drug release and drug release rate across a range of core and shell sizes. This tool supports rapid hypothesis testing and formulation design, and the generalizable modeling framework enables easy adaptation to other bi-layered spherical DDSs. To run the MATLAB tool, download this repository as a zip file, unzip the folder, navigate to MATLAB/Design_Characteristics/Multiple_Designs_Output.mlx, and run the file in that location so it can access the other dependent files.
+This repository contains the MATLAB and COMSOL files from the manuscript cited below that simulates drug delivery from layered cylindrical drug delivery devices and estimates the parameters (porosity, tortuosity, scaling factor, and mass transfer rates) that best fit a given input dataset of cumulative release vs. time. Latin hypercube sampling is used to determine the initial guesses in the multi-start approach. The model accounts for key transport process parameters, including macroscopic device properties and diffusion coefficients across bi-layered polymeric microcapsules. The estimated transport parameters were fitted to experimental release data for BSA and bevacizumab using the finite element (COMSOL) methods. Using clinically relevant thresholds for therapeutic delivery, we simulated drug release from chitosan-PCL microcapsules and showed that the interplay between PCL fraction, polymer thickness, and porosity on therapeutic release.
 
 ## Code Authors
 Eduardo A. Chacin Ruiz, Ashlee N. Ford Versypt
@@ -16,42 +16,29 @@ Contact: ashleefv@buffalo.edu
 * need to update this
 E.A. Chacin Ruiz, K. E. Swindle-Reilly, and A. N. Ford Versypt, Modeling and Design of Chitosan–PCL Bi-Layered Microspheres for Intravitreal Controlled Release, Pharmaceutics 2025, 17, 1174. [https://doi.org/10.3390/pharmaceutics17091174](https://doi.org/10.3390/pharmaceutics17091174)
 
-## MATLAB Folder Scripts and Data
-* bilayer_numerical_diffn_paramest.m This file initializes the parameter estimation problem and calls the following code scripts to perform necessary functions.
-* FD_spheres_variable_diffusivity_two_spheres.m This file contains the finite difference discretization scheme for spheres.
-* simps_license.txt This file contains the license for simps.m.
-* simps.m This file performs Simpson's numerical integration. [Source](https://www.mathworks.com/matlabcentral/fileexchange/25754-simpson-s-rule-for-numerical-integration)
-* solve_cumul_drug_rel.m This file runs the forward problem for the average and best results for the parameter estimation.
-* solve_FD_spheres_variable_diffusivity.m This file solves the PDE for Fickian diffusion within a radially symmetric sphere.
-* CreatePubPlots.m creates all publication figures in the manuscript
-* CreateNodeFigure.m creates Figure S1
-* ScriptForExportingImages.m Converts and saves MATLAB plots to .pdf and .tiff, for the specified width and height size in inches.
-* two_spheres_data_form1_PCL_and_Chitosan.mat This data file contains the data for the experiments involving drug release from chitosan microparticles. A mat file must be loaded to perform the parameter estimation.
-* two_spheres_data_form2_PCL_and_Chitosan.mat This data file contains the data for the experiments involving drug release from PCL-chitosan microparticles. A mat file must be loaded to perform the parameter estimation.
+## Folder Scripts and Data
 
-### Concentration_Comparisons Folder Scripts and Data
-* Plot_concentration_profiles.m This script reads the information from the datasheet and makes a figure composed of four concentration subplots. Creates Figure S2.
-* Concentration_comparison.xlsx This datasheet contains the concentration vs time data at four different microparticle position. At the center, at the middle of the core, at the interface, and at the middle of the shell.
+### Bayesian_Optimization_Surrogate Folder Scripts and Data
+* Figures. This folder contains all the figures from BO surrogate.
+* BO_constraint_internal_scaling.ipynb. Jupyter notebook containing the script for applying the BO and gaussian process (GP). Uses DataSheetforBO.csv as input.
+* DataSheetforBO.csv contains the results for the latin hypercube sampling (LHS) and GP-suggested designs in an structured format.
+* Exp_fitting_of_predictions.m used to fit to an exponential function the release rate profile for the DDS designs.
+* GP_predicted_vs_COMSOL_simulated.m matlab script that compares GP predicted therapeutic duration to COMSOL simulations.
+* LHS_results_5_percent.xlsx contains the information from 10 designs for 5% salt-leaching formulations from LHS.
+* LHS_results_7_5_percent.xlsx contains the information from 10 designs for 7.5% salt-leaching formulations from LHS.
+* Proposed_by_GP_5_salt_leaching.xlsx contains the information from 10 designs for 5% salt-leaching formulations from GP-obtained suggestions.
+* Proposed_by_GP_7_5_salt_leaching.xlsx contains the information from 10 designs for 7.5% salt-leaching formulations from GP-obtained suggestions.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
 
-### Cumulative_Release_Verification Folder Scripts and Data
-* Analytical_Sln.m This script contains the implementation of the analytical solution for a loaded-core and empty shell microsphere based on the derivation by Lu and Chen J. Control. Rel. (1993).
-* Cumul_rel_comparison.xlsx This datasheet contains the cumulative release vs time data for two different set of parameters. The solutions stored are for the analytical solution, MATLAB, and COMSOL results.
-* Plot_cumul_rel.m This script reads the information from the datasheet and makes a figure composed of two subplots. Creates Figure S3.
+### Dimensionless_Release Folder Scripts and Data
+* Dimensionless_plotting_both.m Contains the information for BSA and Bevacizumanb dimensionless plotting.
+* Dimensionless_release.m Matlab script for plotting the dimensionless release of BSA and Bevacizumab.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
 
-### Design_Characteristics Folder Scripts and Data
-* 3D_Surface_data.mat This .mat file contains the data obtained from Surface_Plot_3D.m for a release rate threshold of 2 micrograms/day.
-* 3D_Surface_data_Supplementary.mat This .mat file contains the data obtained from Surface_Plot_3D.m for a release rate threshold of 1 microgram/day.
-* Bilayered_MPs_Prediction.xlsx This datasheet contains the cumulative drug release and drug release rate vs time data for the different core-shell designs for 180 days.
-* Bilayered_MPs_Prediction_Supplementary.xlsx This datasheet contains the cumulative drug release and drug release rate vs time data for the different core-shell designs for 360 days.
-* Cumul_rel_and_rel_rate.m This script reads the information from Bilayered_MPs_Prediction.xlsx and makes two 6x4 figures with microparticles of different sizes. One figure shows the cumulative drug release and the other the drug release rate. Creates Figure 5 and Figure 6.
-* Cumul_rel_and_rel_rate_Supplementary.m This script reads the information from Bilayered_MPs_Prediction_Supplementary.xlsx and makes two 6x4 figures with microparticles of different sizes. One figure shows the cumulative drug release and the other the drug release rate. Creates Figure S9 and Figure S10.
-* MPs_release_6_months.xlsx This datasheet contains the experimental data for cumulative drug release with time, and its standard deviation.
-* [Multiple_Designs_Output.mlx](https://github.com/ashleefv/LayeredSpheres_DDSdesign/blob/master/MATLAB/Design_Characteristics/Multiple_Designs_Output.mlx) This script allows to define a set of chitosan and PCL radii to test and the output is two figures with microparticles of the different sizes chosen. One figure shows the cumulative drug release, and the other the drug release rate.
-* plotfill.m This scripts serves as a function to color the area that is within a predefined threshold.
-* Plot_3D_Surface_Results.m This script creates Figure 7.
-* Plot_3D_Surface_Results.m This script creates Figure S11.
-* Surface_Plot_3D.m The output from this script are 3 3D surface plots where one of the axis represents chitosan radii, another one PCL radii, and the last one depends on the plot. One plot is for days it takes to release a certain drug threshold, one plot is for days releasing a determined amount of drug, and the final plot is the intersection between the previous two plots.
-* Surface_Plot_3D_Supplementary.m Similar to Surface_Plot_3D.m but it extents up to 360 days.
+### Experimental release Folder Scripts and Data
+* Experimental_release.m Plots cumulative drug release vs time from experimental devices of different sizes and porosities. 
+* Microcapsule_drug_release_ALL_formulations.xlsx This excel file contains the information for experimental release from experimental devices of different sizes and porosities.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
 
 ### Diffusion_Boundaries Folder Scripts
 * LowerAndUpperLimitsForDiffusion.m This script plots a figure showing the experimental data for BSA and Bevacizumab from Jiang et al. (2020), and the cumulative release curves assuming the same diffusion coefficients in both layers. Creates Figure S4.
