@@ -16,7 +16,18 @@ E. A. Chacin Ruiz, K. E. Swindle-Reilly, A. N. Ford Versypt, Modeling and Design
 ## Folder Scripts and Data
 
 ### Bayesian_Optimization_Surrogate Folder Scripts and Data
-* Figures. This folder contains all the figures from BO surrogate.
+#### Figures
+  * 3D_Surfaces.png This is the .png file for the 3D surface for the posterior and expected improvement as a function of polymer thickness and PCL fraction. Includes 5% and 7.5% salt leaching devices.
+  * Cumulative_and_release_best.pdf PDF file containing the cumulative release profile and the release rate profile for the best drug delivery system design for a drug delivery system with 5% and 7.5% salt leaching.
+  * Cumulative_and_release_best.tiff TIFF file containing the cumulative release profile and the release rate profile for the best drug delivery system design for a drug delivery system with 5% and 7.5% salt leaching.
+  * Design_Space_Exploration_w_BO.m MATLAB script to plot Cumulative_and_release_best.pdf and Cumulative_and_release_best.tiff files. Uses Results_Compilation_BO.xlsx.
+  * Figures_Compilation.pptx Includes all .png files obtained from the Bayesian Optimization.
+  * GP_posterior_and_EI.png Figure with the GP posterior mean and Expected Improvement for after first and last suggested designs by the Gaussian Process. Includes the 5% and 7.5% salt leaching devices.
+  * GP_posterior_and_slices.png Figure with the GP posterior and Expected Improvement at varying polymer thickness (constant PCL fraction) or varying PCL fraction (and constant polymer thickness). Includes the 5% and 7.5% salt leaching devices.
+  * Results_Compilation_BO.xlsx Spreadsheet that contains the information from the designs obtained by Latin Hypercube Sampling (LHS) and suggested by the GP. Used in Design_Space_Exploration_w_BO.m.
+  * ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
+  * plotfill.m Auxiliary function that fills the region of release rate threshold ± 10%.
+
 * BO_constraint_internal_scaling.ipynb. Jupyter notebook containing the script for applying the BO and gaussian process (GP). Uses DataSheetforBO.csv as input.
 * DataSheetforBO.csv contains the results for the latin hypercube sampling (LHS) and GP-suggested designs in an structured format.
 * Exp_fitting_of_predictions.m used to fit to an exponential function the release rate profile for the DDS designs.
@@ -50,6 +61,47 @@ E. A. Chacin Ruiz, K. E. Swindle-Reilly, A. N. Ford Versypt, Modeling and Design
 
 
 ### Parameter_estimation Folder Scripts and Data
+#### Multi_start_PCL_only
+##### Large_microcapsules
+* BSA_PCL_Big_MCs_10.csv Experimental data of 10% salt-leaching PCL-only large microcapsules releasing BSA.
+* BSA_PCL_Big_MCs_5.csv Experimental data of 5% salt-leaching PCL-only large microcapsules releasing BSA.
+* BSA_PCL_Big_MCs_7_5.csv Experimental data of 7.5% salt-leaching PCL-only large microcapsules releasing BSA.
+* Bev_PCL_Big_MCs_10.csv Experimental data of 10% salt-leaching PCL-only large microcapsules releasing bevacizumab.
+* Bev_PCL_Big_MCs_5.csv Experimental data of 7.5% salt-leaching PCL-only large microcapsules releasing bevacizumab.
+* Bev_PCL_Big_MCs_7_5.csv Experimental data of 5% salt-leaching PCL-only large microcapsules releasing bevacizumab.
+* Multi_start_estimation_kcp.m Matlab script for the estimation of the mass transfer rate in PCL in large microcapsules.
+* Param_estim_kcp.mph COMSOL file used during the estimation of the mass transfer rate in PCL in large microcapsules.
+
+##### Small_microcapsules
+* BSA_PCL_MCs_10.csv Experimental data of 10% salt-leaching PCL-only small microcapsules releasing BSA.
+* BSA_PCL_MCs_5.csv Experimental data of 5% salt-leaching PCL-only small microcapsules releasing BSA.
+* BSA_PCL_MCs_7_5.csv Experimental data of 7.5% salt-leaching PCL-only small microcapsules releasing BSA.
+* Bev_PCL_MCs_10.csv Experimental data of 10% salt-leaching PCL-only small microcapsules releasing bevacizumab.
+* Bev_PCL_MCs_5.csv Experimental data of 7.5% salt-leaching PCL-only small microcapsules releasing bevacizumab.
+* Bev_PCL_MCs_7_5.csv Experimental data of 5% salt-leaching PCL-only small microcapsules releasing bevacizumab.
+* Multi_start_estimation_porosity_tortuosity.m Matlab script for the estimation of the porosity and tortuosity in PCL-only small microcapsules.
+* Param_estim_porosity_tortuosity.mph COMSOL file used during the estimation of the porosity and tortuosity in PCL-only small microcapsules.
+
+#### Multi_start_chitosan_PCL
+##### Large_microcapsules
+* BSA_Chi_PCL_Big_MCs_10.csv Experimental data of 10% salt-leaching chitosan-PCL large microcapsules releasing BSA.
+* BSA_Chi_PCL_Big_MCs_5.csv Experimental data of 5% salt-leaching chitosan-PCL large microcapsules releasing BSA.
+* BSA_Chi_PCL_Big_MCs_7_5.csv Experimental data of 7.5% salt-leaching chitosan-PCL large microcapsules releasing BSA.
+* Bev_chitosan_PCL_Big_MCs_10.csv Experimental data of 10% salt-leaching chitosan-PCL large microcapsules releasing bevacizumab.
+* Bev_chitosan_PCL_Big_MCs_5.csv Experimental data of 7.5% salt-leaching chitosan-PCL large microcapsules releasing bevacizumab.
+* Bev_chitosan_PCL_Big_MCs_7_5.csv Experimental data of 5% salt-leaching chitosan-PCL large microcapsules releasing bevacizumab.
+* Multi_start_estimation_kcc.m Matlab script for the estimation of the mass transfer rate in chitosan in chitosan-PCL large  microcapsules.
+* Param_estim_kcc.mph COMSOL file used during the estimation of the mass transfer rate in chitosan in chitosan-PCL large microcapsules.
+
+##### Small_microcapsules
+* BSA_Chi_PCL_MCs_10.csv Experimental data of 10% salt-leaching chitosan-PCL small microcapsules releasing BSA.
+* BSA_Chi_PCL_MCs_5.csv Experimental data of 5% salt-leaching chitosan-PCL small microcapsules releasing BSA.
+* BSA_Chi_PCL_MCs_7_5.csv Experimental data of 7.5% salt-leaching chitosan-PCL small microcapsules releasing BSA.
+* Bev_chitosan_PCL_MCs_10.csv Experimental data of 10% salt-leaching chitosan-PCL small microcapsules releasing bevacizumab.
+* Bev_chitosan_PCL_MCs_5.csv Experimental data of 7.5% salt-leaching chitosan-PCL small microcapsules releasing bevacizumab.
+* Bev_chitosan_PCL_MCs_7_5.csv Experimental data of 5% salt-leaching chitosan-PCL small microcapsules releasing bevacizumab.
+* Multi_start_estimation_sf.m Matlab script for the estimation of the scaling factor in small chitosan-PCL microcapsules.
+* Param_estim_sf.mph COMSOL file used during the estimation of the scaling factor in small chitosan-PCL microcapsules.
 
 ### PoreSizeDistribution Folder Scripts and Data
 * PoreSizeDistribution.m plots the pore size distribution for the three different formulations assuming a normal distribution.
