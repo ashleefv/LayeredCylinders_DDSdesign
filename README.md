@@ -10,6 +10,9 @@ Eduardo A. Chacin Ruiz, Ashlee N. Ford Versypt
 
 Contact: [ashleefv@buffalo.edu](mailto:ashleefv@buffalo.edu)
 
+## Manuscript
+E. A. Chacin Ruiz, K. E. Swindle-Reilly, A. N. Ford Versypt, Modeling and Design of Multi-layered Cylindrical Microcapsules for Intravitreal Controlled Release, bioRxiv preprint, 2025. [DOI: 10.64898/2025.12.29.696951](https://doi.org/10.64898/2025.12.29.696951).
+
 ## Folder Scripts and Data
 
 ### Bayesian_Optimization_Surrogate Folder Scripts and Data
