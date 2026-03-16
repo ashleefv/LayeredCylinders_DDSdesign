@@ -1,6 +1,4 @@
 # LayeredCylinders_DDSdesign
-* Need to update this DOI
-[![DOI](https://zenodo.org/badge/974522428.svg)](https://doi.org/10.5281/zenodo.16614720)
 
 Code for performing parameter estimation on concentric cylindrical drug delivery devices using available data and simulating various configurations of two concentric polymeric layers around a drug-loaded core.
 
@@ -10,11 +8,7 @@ This repository contains the MATLAB and COMSOL files from the manuscript cited b
 ## Code Authors
 Eduardo A. Chacin Ruiz, Ashlee N. Ford Versypt
 
-Contact: ashleefv@buffalo.edu
-
-## Manuscript
-* need to update this
-E.A. Chacin Ruiz, K. E. Swindle-Reilly, and A. N. Ford Versypt, Modeling and Design of Chitosan–PCL Bi-Layered Microspheres for Intravitreal Controlled Release, Pharmaceutics 2025, 17, 1174. [https://doi.org/10.3390/pharmaceutics17091174](https://doi.org/10.3390/pharmaceutics17091174)
+Contact: [ashleefv@buffalo.edu](mailto:ashleefv@buffalo.edu)
 
 ## Folder Scripts and Data
 
