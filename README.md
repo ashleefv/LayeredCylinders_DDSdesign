@@ -103,6 +103,23 @@ E. A. Chacin Ruiz, K. E. Swindle-Reilly, A. N. Ford Versypt, Modeling and Design
 * Multi_start_estimation_sf.m Matlab script for the estimation of the scaling factor in small chitosan-PCL microcapsules.
 * Param_estim_sf.mph COMSOL file used during the estimation of the scaling factor in small chitosan-PCL microcapsules.
 
+#### Plots
+##### BSA
+* 10_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for BSA release from small and large, PCL-only and chitosan-PCL devices with a 10% salt leaching step.
+* 5_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for BSA release from small and large, PCL-only and chitosan-PCL devices with a 5% salt leaching step.
+* 7_5_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for BSA release from small and large, PCL-only and chitosan-PCL devices with a 7.5% salt leaching step.
+* BSA_rel_all_forms_early_time.m MATLAB script to plot BSA release from all different devices during the first 28 days.
+* BSA_rel_all_forms_full_time.m MATLAB script to plot BSA release from all different devices during the whole release period.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
+
+##### Bevacizumab
+* 10_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for bevacizumab release from small and large, PCL-only and chitosan-PCL devices with a 10% salt leaching step.
+* 5_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for bevacizumab release from small and large, PCL-only and chitosan-PCL devices with a 5% salt leaching step.
+* 7_5_percent_formulations.xlsx Includes the initial guesses, parameter estimation results, and experimental data for bevacizumab release from small and large, PCL-only and chitosan-PCL devices with a 7.5% salt leaching step.
+* Bev_rel_all_forms_early_time.m MATLAB script to plot bevacizumab release from all different devices during the first 28 days.
+* Bev_rel_all_forms_full_time.m MATLAB script to plot bevacizumab release from all different devices during the whole release period.
+* ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
+
 ### PoreSizeDistribution Folder Scripts and Data
 * PoreSizeDistribution.m plots the pore size distribution for the three different formulations assuming a normal distribution.
 * ScriptForExportingImages.m exports standardized images in .pdf and .tiff format.
