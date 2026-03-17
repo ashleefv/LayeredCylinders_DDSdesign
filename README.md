@@ -30,6 +30,8 @@ E. A. Chacin Ruiz, K. E. Swindle-Reilly, A. N. Ford Versypt, Modeling and Design
 
 * BO_constraint_internal_scaling.ipynb. Jupyter notebook containing the script for applying the BO and gaussian process (GP). Uses DataSheetforBO.csv as input.
 * DataSheetforBO.csv contains the results for the latin hypercube sampling (LHS) and GP-suggested designs in an structured format.
+* Design_Space_Exploration_5_percent.mph COMSOL file used to run single iterations of the GP-suggested design parameters for 5% salt-leaching formulations.
+* Design_Space_Exploration_7_5_percent.mph COMSOL file used to run single iterations of the GP-suggested design parameters for 7.5% salt-leaching formulations.
 * Exp_fitting_of_predictions.m used to fit to an exponential function the release rate profile for the DDS designs.
 * GP_predicted_vs_COMSOL_simulated.m matlab script that compares GP predicted therapeutic duration to COMSOL simulations.
 * LHS_results_5_percent.xlsx contains the information from 10 designs for 5% salt-leaching formulations from LHS.
