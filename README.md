@@ -7,7 +7,7 @@ Code for performing parameter estimation, simulation, and Bayesian optimization 
 This repository contains the MATLAB and COMSOL files from the manuscript cited below that simulates drug delivery from layered cylindrical drug delivery devices and estimates the parameters (porosity, tortuosity, scaling factor, and mass transfer rates) that best fit a given input dataset of cumulative release vs. time. Latin hypercube sampling is used to determine the initial guesses in the multi-start approach. The model accounts for key transport process parameters, including macroscopic device properties and diffusion coefficients across bi-layered polymeric microcapsules. The estimated transport parameters were fitted to experimental release data for BSA and bevacizumab using the finite element (COMSOL) methods. Using clinically relevant thresholds for therapeutic delivery, we simulated drug release from chitosan-PCL microcapsules and showed that the interplay between PCL fraction, polymer thickness, and porosity on therapeutic release.
 
 ## Code Authors
-Eduardo A. Chacin Ruiz, Ashlee N. Ford Versypt
+Eduardo A. Chacin Ruiz, Katelyn E. Swindle-Reilly, Ashlee N. Ford Versypt
 
 Contact: [ashleefv@buffalo.edu](mailto:ashleefv@buffalo.edu)
 
