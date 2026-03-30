@@ -1,4 +1,5 @@
 # LayeredCylinders_DDSdesign
+[![DOI](https://zenodo.org/badge/1166746399.svg)](https://doi.org/10.5281/zenodo.19335230)
 
 Code for performing parameter estimation, simulation, and Bayesian optimization of concentric cylindrical drug delivery devices using available data and simulating various configurations of two concentric polymeric layers around a drug-loaded core.
 
