@@ -5,15 +5,14 @@ MC_10_percent=normpdf(pore_sizes,608.55,273.90);
 
 figure(51) %figureS1
 figname = 'figureS1';
-co = orderedcolors("gem");
-    color3 = co(3, :);
-    color4 = co(4,:);
-    color5 = co(5,:);
+color1 = [221 170 51]/255;
+color2 = [0 68 136]/255;
+color3 = [187 85 102]/255;
 
-plot(pore_sizes,MC_5_percent,'Color',color4,'LineWidth',2)
+plot(pore_sizes,MC_5_percent,'Color',color1,'LineWidth',2)
 hold on
-plot(pore_sizes,MC_7_5_percent,'Color',color3,'LineWidth',2)
-plot(pore_sizes,MC_10_percent,'Color',color5,'LineWidth',2)
+plot(pore_sizes,MC_7_5_percent,'Color',color2,'LineWidth',2)
+plot(pore_sizes,MC_10_percent,'Color',color3,'LineWidth',2)
 xlabel('Pore diameter (nm)','FontName','Arial','FontSize',8)
 ylabel('Probability density','FontName','Arial','FontSize',8)
 legend('5% salt leaching','7.5% salt leaching',...
