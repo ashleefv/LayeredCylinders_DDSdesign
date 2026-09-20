@@ -320,60 +320,59 @@ Bev_big_Chi_PCL_5_stdv = xlsread(filename,sheet,xlRange);
 
 figure(52) %figureS2
 figname = 'figureS2';
-co = orderedcolors("gem");
-    color3 = co(3, :);
-    color4 = co(4,:);
-    color5 = co(5,:);
+color1 = [221 170 51]/255;
+color2 = [0 68 136]/255;
+color3 = [187 85 102]/255;
 
 subplot(2,2,2)
-errorbar (BSA_small_PCL_5_time,BSA_small_PCL_5_rel,BSA_small_PCL_5_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (BSA_small_PCL_5_time,BSA_small_PCL_5_rel,BSA_small_PCL_5_stdv,'^','Color',color1,'LineWidth',1)
 hold on
-errorbar (BSA_small_PCL_7_5_time,BSA_small_PCL_7_5_rel,BSA_small_PCL_7_5_stdv,'^','Color',color4,'LineWidth',1)
-errorbar (BSA_small_PCL_10_time,BSA_small_PCL_10_rel,BSA_small_PCL_10_stdv,'^','Color',color5,'LineWidth',1)
-errorbar (BSA_small_Chi_PCL_5_time,BSA_small_Chi_PCL_5_rel,BSA_small_Chi_PCL_5_stdv,'o','Color',color3,'LineWidth',1)
-errorbar (BSA_small_Chi_PCL_7_5_time,BSA_small_Chi_PCL_7_5_rel,BSA_small_Chi_PCL_7_5_stdv,'o','Color',color4,'LineWidth',1)
-errorbar (BSA_small_Chi_PCL_10_time,BSA_small_Chi_PCL_10_rel,BSA_small_Chi_PCL_10_stdv,'o','Color',color5,'LineWidth',1)
-ylabel('Cumulative BSA release (%)','FontName','Arial','FontSize',8)
+errorbar (BSA_small_PCL_7_5_time,BSA_small_PCL_7_5_rel,BSA_small_PCL_7_5_stdv,'^','Color',color2,'LineWidth',1)
+errorbar (BSA_small_PCL_10_time,BSA_small_PCL_10_rel,BSA_small_PCL_10_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (BSA_small_Chi_PCL_5_time,BSA_small_Chi_PCL_5_rel,BSA_small_Chi_PCL_5_stdv,'o','Color',color1,'LineWidth',1)
+errorbar (BSA_small_Chi_PCL_7_5_time,BSA_small_Chi_PCL_7_5_rel,BSA_small_Chi_PCL_7_5_stdv,'o','Color',color2,'LineWidth',1)
+errorbar (BSA_small_Chi_PCL_10_time,BSA_small_Chi_PCL_10_rel,BSA_small_Chi_PCL_10_stdv,'o','Color',color3,'LineWidth',1)
 xlabel('Time (days)','FontName','Arial','FontSize',8)
+title('Small microcapsules (R_{core} = 0.13 mm)','FontWeight','Normal', "FontSize", 8)
 axis([0,252,0,105])
 hold off
 
 
 subplot(2,2,1)
-errorbar (BSA_big_PCL_5_time,BSA_big_PCL_5_rel,BSA_big_PCL_5_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (BSA_big_PCL_5_time,BSA_big_PCL_5_rel,BSA_big_PCL_5_stdv,'^','Color',color1,'LineWidth',1)
 hold on
-errorbar (BSA_big_PCL_7_5_time,BSA_big_PCL_7_5_rel,BSA_big_PCL_7_5_stdv,'^','Color',color4,'LineWidth',1)
-errorbar (BSA_big_PCL_10_time,BSA_big_PCL_10_rel,BSA_big_PCL_10_stdv,'^','Color',color5,'LineWidth',1)
-errorbar (BSA_big_Chi_PCL_5_time,BSA_big_Chi_PCL_5_rel,BSA_big_Chi_PCL_5_stdv,'o','Color',color3,'LineWidth',1)
-errorbar (BSA_big_Chi_PCL_7_5_time,BSA_big_Chi_PCL_7_5_rel,BSA_big_Chi_PCL_7_5_stdv,'o','Color',color4,'LineWidth',1)
-errorbar (BSA_big_Chi_PCL_10_time,BSA_big_Chi_PCL_10_rel,BSA_big_Chi_PCL_10_stdv,'o','Color',color5,'LineWidth',1)
+errorbar (BSA_big_PCL_7_5_time,BSA_big_PCL_7_5_rel,BSA_big_PCL_7_5_stdv,'^','Color',color2,'LineWidth',1)
+errorbar (BSA_big_PCL_10_time,BSA_big_PCL_10_rel,BSA_big_PCL_10_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (BSA_big_Chi_PCL_5_time,BSA_big_Chi_PCL_5_rel,BSA_big_Chi_PCL_5_stdv,'o','Color',color1,'LineWidth',1)
+errorbar (BSA_big_Chi_PCL_7_5_time,BSA_big_Chi_PCL_7_5_rel,BSA_big_Chi_PCL_7_5_stdv,'o','Color',color2,'LineWidth',1)
+errorbar (BSA_big_Chi_PCL_10_time,BSA_big_Chi_PCL_10_rel,BSA_big_Chi_PCL_10_stdv,'o','Color',color3,'LineWidth',1)
 ylabel('Cumulative BSA release (%)','FontName','Arial','FontSize',8)
 xlabel('Time (days)','FontName','Arial','FontSize',8)
+title('Large microcapsules (R_{core} = 0.8225 mm)','FontWeight','Normal', "FontSize", 8)
 axis([0,420,0,105])
 hold off
 
 subplot(2,2,4)
-errorbar (Bev_small_PCL_5_time,Bev_small_PCL_5_rel,Bev_small_PCL_5_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (Bev_small_PCL_5_time,Bev_small_PCL_5_rel,Bev_small_PCL_5_stdv,'^','Color',color1,'LineWidth',1)
 hold on
-errorbar (Bev_small_PCL_7_5_time,Bev_small_PCL_7_5_rel,Bev_small_PCL_7_5_stdv,'^','Color',color4,'LineWidth',1)
-errorbar (Bev_small_PCL_10_time,Bev_small_PCL_10_rel,Bev_small_PCL_10_stdv,'^','Color',color5,'LineWidth',1)
-errorbar (Bev_small_Chi_PCL_5_time,Bev_small_Chi_PCL_5_rel,Bev_small_Chi_PCL_5_stdv,'o','Color',color3,'LineWidth',1)
-errorbar (Bev_small_Chi_PCL_7_5_time,Bev_small_Chi_PCL_7_5_rel,Bev_small_Chi_PCL_7_5_stdv,'o','Color',color4,'LineWidth',1)
-errorbar (Bev_small_Chi_PCL_10_time,Bev_small_Chi_PCL_10_rel,Bev_small_Chi_PCL_10_stdv,'o','Color',color5,'LineWidth',1)
-ylabel('Cumulative bevacizumab release (%)','FontName','Arial','FontSize',8)
+errorbar (Bev_small_PCL_7_5_time,Bev_small_PCL_7_5_rel,Bev_small_PCL_7_5_stdv,'^','Color',color2,'LineWidth',1)
+errorbar (Bev_small_PCL_10_time,Bev_small_PCL_10_rel,Bev_small_PCL_10_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (Bev_small_Chi_PCL_5_time,Bev_small_Chi_PCL_5_rel,Bev_small_Chi_PCL_5_stdv,'o','Color',color1,'LineWidth',1)
+errorbar (Bev_small_Chi_PCL_7_5_time,Bev_small_Chi_PCL_7_5_rel,Bev_small_Chi_PCL_7_5_stdv,'o','Color',color2,'LineWidth',1)
+errorbar (Bev_small_Chi_PCL_10_time,Bev_small_Chi_PCL_10_rel,Bev_small_Chi_PCL_10_stdv,'o','Color',color3,'LineWidth',1)
 xlabel('Time (days)','FontName','Arial','FontSize',8)
 axis([0,252,0,80])
 hold off
 
 
 subplot(2,2,3)
-errorbar (Bev_big_PCL_5_time,Bev_big_PCL_5_rel,Bev_big_PCL_5_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (Bev_big_PCL_5_time,Bev_big_PCL_5_rel,Bev_big_PCL_5_stdv,'^','Color',color1,'LineWidth',1)
 hold on
-errorbar (Bev_big_PCL_7_5_time,Bev_big_PCL_7_5_rel,Bev_big_PCL_7_5_stdv,'^','Color',color4,'LineWidth',1)
-errorbar (Bev_big_PCL_10_time,Bev_big_PCL_10_rel,Bev_big_PCL_10_stdv,'^','Color',color5,'LineWidth',1)
-errorbar (Bev_big_Chi_PCL_5_time,Bev_big_Chi_PCL_5_rel,Bev_big_Chi_PCL_5_stdv,'o','Color',color3,'LineWidth',1)
-errorbar (Bev_big_Chi_PCL_7_5_time,Bev_big_Chi_PCL_7_5_rel,Bev_big_Chi_PCL_7_5_stdv,'o','Color',color4,'LineWidth',1)
-errorbar (Bev_big_Chi_PCL_10_time,Bev_big_Chi_PCL_10_rel,Bev_big_Chi_PCL_10_stdv,'o','Color',color5,'LineWidth',1)
+errorbar (Bev_big_PCL_7_5_time,Bev_big_PCL_7_5_rel,Bev_big_PCL_7_5_stdv,'^','Color',color2,'LineWidth',1)
+errorbar (Bev_big_PCL_10_time,Bev_big_PCL_10_rel,Bev_big_PCL_10_stdv,'^','Color',color3,'LineWidth',1)
+errorbar (Bev_big_Chi_PCL_5_time,Bev_big_Chi_PCL_5_rel,Bev_big_Chi_PCL_5_stdv,'o','Color',color1,'LineWidth',1)
+errorbar (Bev_big_Chi_PCL_7_5_time,Bev_big_Chi_PCL_7_5_rel,Bev_big_Chi_PCL_7_5_stdv,'o','Color',color2,'LineWidth',1)
+errorbar (Bev_big_Chi_PCL_10_time,Bev_big_Chi_PCL_10_rel,Bev_big_Chi_PCL_10_stdv,'o','Color',color3,'LineWidth',1)
 ylabel('Cumulative bevacizumab release (%)','FontName','Arial','FontSize',8)
 xlabel('Time (days)','FontName','Arial','FontSize',8)
 axis([0,252,0,80])
@@ -383,7 +382,7 @@ hold off
 %Overall legend top
 legend('PCL 5%','PCL 7.5%','PCL 10%','Chi-PCL 5%','Chi-PCL 7.5%','Chi-PCL 10%','FontName','Arial','FontSize',7)
 h = legend('Location','northoutside', 'Orientation', 'horizontal');
-p = [0.5 0.96 0.03 0.03]; %Format: [left bottom width height] in normalized units
+p = [0.5 0.97 0.03 0.03]; %Format: [left bottom width height] in normalized units
 set(h,'Position', p,'Units', 'normalized');
 
 
@@ -395,4 +394,3 @@ widthInches = 6.5;
 heightInches = 5;
 
 run('ScriptForExportingImages.m')
-
