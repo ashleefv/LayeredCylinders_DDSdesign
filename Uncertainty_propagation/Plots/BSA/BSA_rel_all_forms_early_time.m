@@ -2,11 +2,10 @@ clear variables
 clc
 %%
 fig = figure(59); %Figure S9
-figname = 'figureS9'; 
-co = orderedcolors("gem");
-    color1 = co(3, :);
-    color2 = co(1,:);
-    color3 = co(2,:);
+figname = 'figureS9';
+color1 = [221 170 51]/255;
+color2 = [0 68 136]/255;
+color3 = [187 85 102]/255;
 
 color = [color1, color2, color3];
 filenames = ["5_percent_formulations.xlsx", "7_5_percent_formulations.xlsx", "10_percent_formulations.xlsx"];
@@ -41,7 +40,7 @@ for i=1:length(filenames)
     load(mat_files_small_pcl_only(i))
     
     subplot(4,3,i)
-    errorbar (exp_time_BSA,exp_rel_BSA,exp_stdv_BSA,'ko')
+    errorbar (exp_time_BSA,exp_rel_BSA,exp_stdv_BSA,'k^')
     hold on
     plot (sim_time_BSA,sim_results_average_BSA,'-','Color',color((i-1)*3+1:i*3),'LineWidth',1)
     fill([sim_time_BSA' fliplr(sim_time_BSA')], [Q_lo fliplr(Q_hi)], ...
@@ -80,7 +79,7 @@ for i=1:length(filenames)
     load(mat_files_large_pcl_only(i))
 
     subplot(4,3,i+6)
-    errorbar (exp_time_BSA,exp_rel_BSA,exp_stdv_BSA,'ko')
+    errorbar (exp_time_BSA,exp_rel_BSA,exp_stdv_BSA,'k^')
     hold on
     plot (sim_time_BSA,sim_results_average_BSA,'-.','Color',color((i-1)*3+1:i*3),'LineWidth',2)
     fill([sim_time_BSA' fliplr(sim_time_BSA')], [Q_lo(1:length(sim_time_BSA)) fliplr(Q_hi(1:length(sim_time_BSA)))], ...
