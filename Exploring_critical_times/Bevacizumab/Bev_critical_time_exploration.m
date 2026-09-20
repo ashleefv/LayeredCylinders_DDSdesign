@@ -1,398 +1,109 @@
 clear variables
 clc
 
-%% BSA 
-% 5% salt leaching
+%% Fixed RGB colors for 5%, 7.5%, 10%
+color_5 = [221 170 51]/255;   % yellow
+color_7_5 = [0 68 136]/255;   % blue
+color_10 = [187 85 102]/255;  % red
+colors = {color_5, color_7_5, color_10};
+
+%% File
 filename = 'Results_compilation_Bev.xlsx';
-sheet = 1;
+figname = 'figure_tc_best_BEV';
 
-% Experimental data
-xlRange = 'AZ3:AZ19';
-exp_time = xlsread(filename,sheet,xlRange);
+%% Salt leaching sheets
+sheets = [1, 2, 3];
+titles = ["5% salt leaching", "7.5% salt leaching", "10% salt leaching"];
 
-xlRange = 'BA3:BA19';
-exp_rel = xlsread(filename,sheet,xlRange);
+%% Create figure
+figure(400)
+set(gcf,'Position',[200 200 1100 550])
 
-xlRange = 'BB3:BB19';
-exp_stdv = xlsread(filename,sheet,xlRange);
+for i = 1:3
+    sheet = sheets(i);
 
-%tc=3d
-xlRange = 'L4:L256';
-sim_time = xlsread(filename,sheet,xlRange);
+    %% Experimental data
+    exp_time = xlsread(filename, sheet, 'AZ3:AZ19');
+    exp_rel  = xlsread(filename, sheet, 'BA3:BA19');
+    exp_stdv = xlsread(filename, sheet, 'BB3:BB19');
 
-xlRange = 'M4:M256';
-sim_results_average_3d = xlsread(filename,sheet,xlRange);
+    %% Simulation time
+    sim_time = xlsread(filename, sheet, 'L4:L256');
 
-xlRange = 'P4:P256';
-sim_results_best_3d = xlsread(filename,sheet,xlRange);
+    %% Load all tc curves
+    sim_avg_3d  = xlsread(filename, sheet, 'M4:M256');
+    err_3d      = xlsread(filename, sheet, 'J3:J53');
 
-xlRange = 'J3:J53';
-sim_results_errors_3d = xlsread(filename,sheet,xlRange);
+    sim_avg_7d  = xlsread(filename, sheet, 'AD4:AD256');
+    err_7d      = xlsread(filename, sheet, 'AA3:AA53');
 
-%tc=7d
-xlRange = 'AD4:AD256';
-sim_results_average_7d = xlsread(filename,sheet,xlRange);
+    sim_avg_14d  = xlsread(filename, sheet, 'AU4:AU256');
+    err_14d      = xlsread(filename, sheet, 'AR3:AR53');
 
-xlRange = 'AG4:AG256';
-sim_results_best_7d = xlsread(filename,sheet,xlRange);
+    %% Determine best tc (lowest SSE)
+    SSE = [min(err_3d), min(err_7d), min(err_14d)];
+    [~, idx_best] = min(SSE);
 
-xlRange = 'AA3:AA53';
-sim_results_errors_7d = xlsread(filename,sheet,xlRange);
+    tc_values = [3, 7, 14];
+    best_tc = tc_values(idx_best);
 
-%tc=14d
-xlRange = 'AU4:AU256';
-sim_results_average_14d = xlsread(filename,sheet,xlRange);
+    %% --- TOP ROW: Cumulative drug release (ALL 3 tc curves) ---
+    subplot(2,3,i)
 
-xlRange = 'AX4:AX256';
-sim_results_best_14d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AR3:AR53';
-sim_results_errors_14d = xlsread(filename,sheet,xlRange);
-
-figure(56) %figure6.S6
-figname = 'figureS6';
-subplot(2,3,4)
-set(gca,'ColorOrderIndex',6)
-co = get(gca, 'ColorOrder'); % Get the default color order
-color1 = co(1, :); 
-color2 = co(2, :);
-color3 = co(3, :);
-color4 = co(4, :);
-color5 = co(5, :);
-color6 = co(6, :); 
-color7 = co(7, :);
-
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_3d,'Color',color6,'LineWidth',2)
-plot (sim_time,sim_results_best_3d,'--','Color',color3,'LineWidth',2)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,35])
-hold off
-
-subplot(2,3,5)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_7d,'Color',color4,'LineWidth',2)
-plot (sim_time,sim_results_best_7d,'--','Color',color5,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,35])
-hold off
-
-subplot(2,3,6)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_14d,'Color',color7,'LineWidth',2)
-plot (sim_time,sim_results_best_14d,'--','Color',color1,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,35])
-hold off
-
-
-n_restart = linspace(1,50,50);
-
-subplot(2,3,1)
-plot(n_restart,sim_results_errors_3d,'.','Color',color6)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,0,45])
-
-subplot(2,3,2)
-plot(n_restart,sim_results_errors_7d,'.','Color',color4)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,0,45])
-
-subplot(2,3,3)
-plot(n_restart,sim_results_errors_14d,'.','Color',color7)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,0,45])
-
-
-
-labelstring = {'a)', 'b)', 'c)','d)','e)','f)'};
-for v = 1:6
-    subplot(2,3,v)
+    % Data (experimental)
+    hData = errorbar(exp_time, exp_rel, exp_stdv, 'k^', 'LineWidth',1.0);
     hold on
-    text(-0.225, 1.05, labelstring(v)', 'Units', 'normalized', 'FontWeight', 'bold','FontSize',8)
-     set(gca,'FontName','Arial','FontSize',8)
+
+    % tc = 3 days (solid)
+    h3  = plot(sim_time, sim_avg_3d,  '-',  'Color', colors{i}, 'LineWidth', 2);
+
+    % tc = 7 days (dashed)
+    h7  = plot(sim_time, sim_avg_7d,  '--', 'Color', colors{i}, 'LineWidth', 2);
+
+    % tc = 14 days (dotted)
+    h14 = plot(sim_time, sim_avg_14d, ':',  'Color', colors{i}, 'LineWidth', 2);
+
+    % Two-line column title
+    title({titles(i), sprintf("(Best t_c = %d days)", best_tc)}, ...
+        'FontName','Arial','FontSize',10)
+
+    xlabel('Time (days)','FontName','Arial','FontSize',8)
+    ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
+
+    yticks(0:150:max(exp_rel)*1.2)
+    axis([0 max(sim_time) 0 max(exp_rel)*1.2])
+
+    % Individual legend (font size reduced by 1 point)
+    legend([hData, h3, h7, h14], ...
+        {'Data','t_c = 3 days','t_c = 7 days','t_c = 14 days'}, ...
+        'FontSize',6, 'Location','southeast')
+
+    hold off
+
+    %% --- BOTTOM ROW: Error curves (ALL 3 tc curves) ---
+    subplot(2,3,i+3)
+
+    n3  = linspace(1, length(err_3d),  length(err_3d));
+    n7  = linspace(1, length(err_7d),  length(err_7d));
+    n14 = linspace(1, length(err_14d), length(err_14d));
+
+    plot(n3,  err_3d,  '-',  'Color', colors{i}, 'LineWidth', 2);
+    hold on
+    plot(n7,  err_7d,  '--', 'Color', colors{i}, 'LineWidth', 2);
+    plot(n14, err_14d, ':',  'Color', colors{i}, 'LineWidth', 2);
+
+    xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
+    ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
+
+    yticks(0:150:900)
+    axis([0 max([length(err_3d),length(err_7d),length(err_14d)]) 0 900])
+
+    hold off
 end
 
+%% Export
 widthInches = 6.5;
 heightInches = 5;
-
 run('ScriptForExportingImages.m')
 
 
-
-
-%% 7.5% salt leaching
-sheet = 2;
-
-% Experimental data
-xlRange = 'AZ3:AZ19';
-exp_time = xlsread(filename,sheet,xlRange);
-
-xlRange = 'BA3:BA19';
-exp_rel = xlsread(filename,sheet,xlRange);
-
-xlRange = 'BB3:BB19';
-exp_stdv = xlsread(filename,sheet,xlRange);
-
-%tc=3d
-xlRange = 'L4:L256';
-sim_time = xlsread(filename,sheet,xlRange);
-
-xlRange = 'M4:M256';
-sim_results_average_3d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'P4:P256';
-sim_results_best_3d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'J3:J53';
-sim_results_errors_3d = xlsread(filename,sheet,xlRange);
-
-%tc=7d
-xlRange = 'AD4:AD256';
-sim_results_average_7d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AG4:AG256';
-sim_results_best_7d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AA3:AA53';
-sim_results_errors_7d = xlsread(filename,sheet,xlRange);
-
-%tc=14d
-xlRange = 'AU4:AU256';
-sim_results_average_14d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AX4:AX256';
-sim_results_best_14d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AR3:AR53';
-sim_results_errors_14d = xlsread(filename,sheet,xlRange);
-
-figure(57) %figure6.S7
-figname = 'figureS7';
-subplot(2,3,4)
-set(gca,'ColorOrderIndex',6)
-co = get(gca, 'ColorOrder'); % Get the default color order
-color1 = co(1, :); 
-color2 = co(2, :);
-color3 = co(3, :);
-color4 = co(4, :);
-color5 = co(5, :);
-color6 = co(6, :); 
-color7 = co(7, :);
-
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_3d,'Color',color6,'LineWidth',2)
-plot (sim_time,sim_results_best_3d,'--','Color',color3,'LineWidth',2)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,70])
-hold off
-
-subplot(2,3,5)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_7d,'Color',color4,'LineWidth',2)
-plot (sim_time,sim_results_best_7d,'--','Color',color5,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,70])
-hold off
-
-subplot(2,3,6)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_14d,'Color',color7,'LineWidth',2)
-plot (sim_time,sim_results_best_14d,'--','Color',color1,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,270,0,70])
-hold off
-
-
-n_restart = linspace(1,50,50);
-
-subplot(2,3,1)
-plot(n_restart,sim_results_errors_3d,'.','Color',color6)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,200,600])
-
-subplot(2,3,2)
-plot(n_restart,sim_results_errors_7d,'.','Color',color4)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,200,600])
-
-subplot(2,3,3)
-plot(n_restart,sim_results_errors_14d,'.','Color',color7)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,200,600])
-
-
-
-labelstring = {'a)', 'b)', 'c)','d)','e)','f)'};
-for v = 1:6
-    subplot(2,3,v)
-    hold on
-    text(-0.225, 1.05, labelstring(v)', 'Units', 'normalized', 'FontWeight', 'bold','FontSize',8)
-     set(gca,'FontName','Arial','FontSize',8)
-end
-
-widthInches = 6.5;
-heightInches = 5;
-
-run('ScriptForExportingImages.m')
-
-
-%% 10% salt leaching
-sheet = 3;
-
-% Experimental data
-xlRange = 'AZ3:AZ17';
-exp_time = xlsread(filename,sheet,xlRange);
-
-xlRange = 'BA3:BA17';
-exp_rel = xlsread(filename,sheet,xlRange);
-
-xlRange = 'BB3:BB17';
-exp_stdv = xlsread(filename,sheet,xlRange);
-
-%tc=3d
-xlRange = 'L4:L256';
-sim_time = xlsread(filename,sheet,xlRange);
-
-xlRange = 'M4:M256';
-sim_results_average_3d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'P4:P256';
-sim_results_best_3d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'J3:J53';
-sim_results_errors_3d = xlsread(filename,sheet,xlRange);
-
-%tc=7d
-xlRange = 'AD4:AD256';
-sim_results_average_7d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AG4:AG256';
-sim_results_best_7d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AA3:AA53';
-sim_results_errors_7d = xlsread(filename,sheet,xlRange);
-
-%tc=14d
-xlRange = 'AU4:AU256';
-sim_results_average_14d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AX4:AX256';
-sim_results_best_14d = xlsread(filename,sheet,xlRange);
-
-xlRange = 'AR3:AR53';
-sim_results_errors_14d = xlsread(filename,sheet,xlRange);
-
-figure(58) %figure6.S8
-figname = 'figureS8';
-subplot(2,3,4)
-set(gca,'ColorOrderIndex',6)
-co = get(gca, 'ColorOrder'); % Get the default color order
-color1 = co(1, :); 
-color2 = co(2, :);
-color3 = co(3, :);
-color4 = co(4, :);
-color5 = co(5, :);
-color6 = co(6, :); 
-color7 = co(7, :);
-
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_3d,'Color',color6,'LineWidth',2)
-plot (sim_time,sim_results_best_3d,'--','Color',color3,'LineWidth',2)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,170,0,70])
-hold off
-
-subplot(2,3,5)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_7d,'Color',color4,'LineWidth',2)
-plot (sim_time,sim_results_best_7d,'--','Color',color5,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,170,0,70])
-hold off
-
-subplot(2,3,6)
-errorbar (exp_time,exp_rel,exp_stdv,'k^')
-hold on
-plot (sim_time,sim_results_average_14d,'Color',color7,'LineWidth',2)
-plot (sim_time,sim_results_best_14d,'--','Color',color1,'LineWidth',2)
-xlabel('Time (days)','FontName','Arial','FontSize',8)
-ylabel('Cumulative drug release (%)','FontName','Arial','FontSize',8)
-legend('Jiang et al. (2020)', 'Average model','Best model','FontName','Arial','FontSize',6,'location','southeast')
-axis([0,170,0,70])
-hold off
-
-
-n_restart = linspace(1,50,50);
-
-subplot(2,3,1)
-plot(n_restart,sim_results_errors_3d,'.','Color',color6)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,250,900])
-
-subplot(2,3,2)
-plot(n_restart,sim_results_errors_7d,'.','Color',color4)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,250,900])
-
-subplot(2,3,3)
-plot(n_restart,sim_results_errors_14d,'.','Color',color7)
-ylabel('Sum of squared errors','FontName','Arial','FontSize',8)
-xlabel('Completed multi-start run','FontName','Arial','FontSize',8)
-legend('Simulation','FontName','Arial','FontSize',6,'location','northwest')
-axis([0,50,250,900])
-
-
-
-labelstring = {'a)', 'b)', 'c)','d)','e)','f)'};
-for v = 1:6
-    subplot(2,3,v)
-    hold on
-    text(-0.225, 1.05, labelstring(v)', 'Units', 'normalized', 'FontWeight', 'bold','FontSize',8)
-     set(gca,'FontName','Arial','FontSize',8)
-end
-
-widthInches = 6.5;
-heightInches = 5;
-
-run('ScriptForExportingImages.m')
