@@ -172,7 +172,7 @@ end
 % Common y-axis label
 han = axes(fig, 'visible', 'off'); 
 han.YLabel.Visible = 'on';
-ylabel(han, 'Cumulative drug release (%)',"Position",[-0.03,0.5,1],'FontName','Arial','FontSize',8);
+ylabel(han, 'Cumulative drug release (%)',"Position",[-0.05,0.5,1],'FontName','Arial','FontSize',8);
 
 % Common x-axis label
 han = axes(fig, 'visible', 'off'); 
