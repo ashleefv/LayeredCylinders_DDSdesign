@@ -50,27 +50,23 @@ for spreadsheetNumber = 1:length(saltleaching)
         x = x(28:end);
         y = y(28:end);
     
-        if i == 3 && spreadsheetNumber==3
-            t_cross_days = 219;
-        else
-            [f, gof] = fit(x, y, 'exp2');
-            coeffs = coeffvalues(f);
-            fittingoutput{i,spreadsheetNumber,1} = f;
-            fittingoutput{i,spreadsheetNumber,2} = gof;
-        
-            % Define the equation f(t) - threshold = 0
-            g = @(t) f(t) - threshold;
-            
-            % Choose a reasonable initial guess (e.g., median of your x-range)
-            t_guess = median(x);
-            
-            % Solve for t
-            t_cross_days = fzero(g, t_guess);
-        
-            % Fix invalid outputs
-            if isnan(t_cross_days) || t_cross_days < 0
-                t_cross_days = 0;
-            end
+        [f, gof] = fit(x, y, 'exp2');
+        coeffs = coeffvalues(f);
+        fittingoutput{i,spreadsheetNumber,1} = f;
+        fittingoutput{i,spreadsheetNumber,2} = gof;
+
+        % Define the equation f(t) - threshold = 0
+        g = @(t) f(t) - threshold;
+
+        % Choose a reasonable initial guess (e.g., median of your x-range)
+        t_guess = median(x);
+
+        % Solve for t
+        t_cross_days = fzero(g, t_guess);
+
+        % Fix invalid outputs
+        if isnan(t_cross_days) || t_cross_days < 0
+            t_cross_days = 0;
         end
     
         %Create a new table for storing data
